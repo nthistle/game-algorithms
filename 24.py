@@ -16,6 +16,8 @@ def sub(a,b):
     return (a-b,str(a) + "-" + str(b))
 
 # more operations can be added if necessary
+ops = [[mult,add],[div,sub]]
+
 
 def getPoss(num1,num2):
     poss = []
@@ -46,3 +48,19 @@ def getAllPoss(numset):
                     newposs.append((tmp,curstr + n[1]))
     return newposs
 
+def is24(num,epsilon=0.000001):
+    if(abs(num-24.0) < epsilon):
+        return True
+    return False
+    
+def solve24(nums):
+    q = []
+    q.append((nums,""))
+    while(len(q) > 0):
+        cur = q.pop(0)
+        if(len(cur[0])==1 and is24(cur[0][0])):
+            return cur[1]
+        newstuff = getAllPoss(cur)
+        for e in newstuff:
+            q.append(e)
+    return None
