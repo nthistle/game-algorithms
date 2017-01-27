@@ -49,6 +49,14 @@ def getAllPoss(numset):
                 newposs.append((tmp,curstr + n[1]))
     return newposs
 
+def formatMoveString(moveString):
+    moves = moveString.split(",")
+    moves.pop(0)
+    formatted = ""
+    for move in moves:
+        formatted += move + " = " + str(eval(move)) + "\n"
+    return formatted[0:-1]
+
 def is24(num,epsilon=0.000001):
     if(abs(num-24.0) < epsilon):
         return True
@@ -60,8 +68,17 @@ def solve24(nums):
     while(len(q) > 0):
         cur = q.pop(0)
         if(len(cur[0])==1 and is24(cur[0][0])):
-            return cur[1]
+            return formatMoveString(cur[1])
         newstuff = getAllPoss(cur)
         for e in newstuff:
             q.append(e)
     return None
+
+
+def main():
+    print(solve24([1,5,5,5]))
+    # sample
+    # TODO: let user input 24 puzzles
+
+if __name__ == "__main__":
+    main()
