@@ -25,10 +25,11 @@ def getPoss(num1,num2):
     for op in ops[0]:
         poss.append(op(num1,num2))
     for op in ops[1]:
-        poss.append(op(num1,num2))
-        poss.append(op(num2,num1))
+        if op != ops[1][0] or num2!=0: # no div by 0
+            poss.append(op(num1,num2))
+        if op != ops[1][0] or num1!=0:
+            poss.append(op(num2,num1))
     return poss
-
 
 #numset is of format ([,,,,],"...")
 def getAllPoss(numset):
@@ -42,10 +43,10 @@ def getAllPoss(numset):
             for k in range(len(curset)):
                 if k!=i and k!=j:
                     nset.append(curset[k])
-                for n in nthing:
-                    tmp = [x for x in nset]
-                    tmp.append(n[0])
-                    newposs.append((tmp,curstr + n[1]))
+            for n in nthing:
+                tmp = [x for x in nset]
+                tmp.append(n[0])
+                newposs.append((tmp,curstr + n[1]))
     return newposs
 
 def is24(num,epsilon=0.000001):
